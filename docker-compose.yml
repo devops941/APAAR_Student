@@ -1,0 +1,28 @@
+version: "3.8"
+
+services:
+  mongodb:
+    image: mongo:7.0
+    container_name: apaar-mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  web:
+    build: .
+    container_name: apaar-web
+    restart: always
+    ports:
+      - "${PORT:-3005}:3000"
+    environment:
+      - NODE_ENV=production
+      - MONGODB_URI=mongodb://mongodb:27017/apaar_platform
+      - AUTH_SECRET=production_long_secure_secret_key_987654321
+      - APP_URL=http://localhost:${PORT:-3005}
+    depends_on:
+      - mongodb
+
+volumes:
+  mongo_data:

@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# document uploads (private storage)
+/uploads
+
+# keep example env committed
+!.env.example
